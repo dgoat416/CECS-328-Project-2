@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,40 +48,112 @@ public class Main
 	 * Method to return the "score" of a recursive algorithm
 	 * @param a = one value to determine gcd
 	 * 	@param b = another value to determine gcd
+	 * @param div = divisor as a string to create a bigInteger
 	 * @return
 	 * 				= the score of the recursive algorithm
 	 */
-	public static int gcd(BigInteger a, BigInteger b, String divisor)
+	public static int gcd(BigInteger a, BigInteger b, String div)
 	{
 		int score = 0;
-		// not computing the gcd simply implement the algorithm 
-		// he put on the page and calculate the score
-		if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
-			b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+		BigInteger divisor = new BigInteger(div);
+//		boolean aGood = true;
+//		boolean bGood = true;
+//		gcdOutput temp = new gcdOutput();
+		
+//		while (aGood || bGood)
+//		{
+		// if a % divisor == 0 && b % divisor == 0
+		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
+			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
 //			score += 3 * gcd(a.divide(new BigInteger("3")),
 //					            b.divide(new BigInteger("3")), score);
 			
-			score += 3 * 2;
-			a = a.divide(new BigInteger("3"));
-		    b = b.divide(new BigInteger("3"));
+//			score += 3 * 2;
+			
+			a = a.divide(divisor);
+			b = b.divide(divisor);
+			score += 2;
+//			temp.score = 2;
+//			temp = gcd(a, b, divisor.toString());
+//			temp.score *= divisor.intValue();
+			return score +=  gcd(a, b, divisor.toString());
 		}
 		
-		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
-			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+		
+		// if only b % divisor == 0
+		else if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
-//			score += gcd(a.divide(new BigInteger("3")), b, score);
-			score += 1;
-			a = a.divide(new BigInteger("3"));
+			 b = b.divide(divisor);
+			 score++;
+//			 temp = gcd(a, b, divisor.toString());
+			 return score += gcd(a, b, divisor.toString());
 		}
 		
-		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
-			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+		// if only b % divisor == 0
+		else if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
-//			score += gcd(a, b.divide(new BigInteger("3")), score);
-			score += 1;
-			b = b.divide(new BigInteger("3"));
+			a = a.divide(divisor);
+			score++;
+//			temp = gcd(a,b, divisor.toString());
+			return score += gcd(a, b, divisor.toString());
 		}
+		
+//		else
+//			bGood = false;
+		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		
+//		// not computing the gcd simply implement the algorithm 
+//		// he put on the page and calculate the score
+//		if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += 3 * gcd(a.divide(new BigInteger("3")),
+////					            b.divide(new BigInteger("3")), score);
+//			
+//			score += 3 * 2;
+//			a = a.divide(new BigInteger("3"));
+//		    b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+		
+		
+		
+		
+		
+		
+		
 		
 		
 //		if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
@@ -120,9 +193,9 @@ public class Main
 //			{
 //				score += gcd(a, b.divide(new BigInteger("7")), score);
 //			}
+//		}
 		
-		
-		return score;
+		return 0;
 	}
 
 	/**
@@ -191,7 +264,9 @@ public class Main
 			// gives us the number of elements
 			numElements = scan.nextInt();
 			
+			// create an array of scores and initialize to 0
 			scores = new Integer[numElements];
+			Arrays.fill(scores, 0);
 			
 			// gives us list of "easily divisible numbers"
 			for (int i = 0; i < numElements; i++)
@@ -204,27 +279,40 @@ public class Main
 				bValues.add(scan.nextBigInteger());
 			}
 			
-			 //determine the gcd for each and store it in scores
-			for (int i = 0; i < numElements; i++)
-				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
+			// determine the gcd for each and store it in scores
+//			for (int i = 0; i < numElements; i++)
+//				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
 			
 			// gcd output
-			gcdOutput output = new gcdOutput();
+			//gcdOutput output = new gcdOutput();
+			int output = 0;
 			
-//			// determine the gcd score of one statement executed through for each set of divisible numbers
-//			// s = gcd statement number index
-//			// d = each easily divisible number index
-//			for(int s = 0; s < numElements; s++)
-//			{
-//				for (int d = 0; d < numElements; d++)
-//				{
-//					output = gcd(aValues.get(d),bValues.get(d), ezDivNums.get(d).toString());
-//				}
-//			}
+			// determine the gcd score of one statement executed through for each set of divisible numbers
+			// s = gcd statement number index
+			// d = each easily divisible number index
+			for(int s = 0; s < numElements; s++)
+			{
+				for (int d = 0; d < numElements; d++)
+				{
+					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
+					
+					// update values
+					scores[d] += output;
+//					aValues.set(s, output.newA);
+//					bValues.set(s, output.newB);
+				}
+			}
 			
-			// print test
-			for (Integer Int : scores)
-				System.out.print(Int);
+			
+			// output test
+			for (int i = 0; i < numElements; i++)
+			{
+				System.out.print(ezDivNums.get(i) + " " + scores[i] + "\n");
+			}
+			
+//			// print test
+//			for (Integer Int : scores)
+//				System.out.print(Int);
 			
 		} catch (FileNotFoundException e)
 		{
