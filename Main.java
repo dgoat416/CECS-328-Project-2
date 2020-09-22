@@ -62,42 +62,85 @@ public class Main
 		
 //		while (aGood || bGood)
 //		{
-		// if a % divisor == 0 && b % divisor == 0
-		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
-			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-		{
-//			score += 3 * gcd(a.divide(new BigInteger("3")),
-//					            b.divide(new BigInteger("3")), score);
+//		// if a % divisor == 0 && b % divisor == 0
+//		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
+//			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += 3 * gcd(a.divide(new BigInteger("3")),
+////					            b.divide(new BigInteger("3")), score);
+//			
+////			score += 3 * 2;
+//			
+//			a = a.divide(divisor);
+//			b = b.divide(divisor);
+//			score += 2;
+////			temp.score = 2;
+////			temp = gcd(a, b, divisor.toString());
+////			temp.score *= divisor.intValue();
+//			return score +=  gcd(a, b, divisor.toString());
+//		}
+//		
+//		
+//		// if only b % divisor == 0
+//		else if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+//			 b = b.divide(divisor);
+//			 score++;
+////			 temp = gcd(a, b, divisor.toString());
+//			 return score += gcd(a, b, divisor.toString());
+//		}
+//		
+//		// if only b % divisor == 0
+//		else if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+//			a = a.divide(divisor);
+//			score++;
+////			temp = gcd(a,b, divisor.toString());
+//			return score += gcd(a, b, divisor.toString());
+//		}
+		
+//		Math.log10(a.max(b)a.doubleValue());
+		BigInteger max = a.max(b);
+		BigInteger min = max.compareTo(a) == 0 ? b : a;
+		double score1  = 0; // max
+		double score2 = 0; // min
+		double score3 = 0; // divisor
+		double temp = 0;
+		
+		score1  =  Math.log10(max.doubleValue());
+		score2 =  Math.log10(min.doubleValue());
+		score3 =  Math.log10(divisor.doubleValue());
+		
+		temp = score1 % score3;
+		score += temp == 0 ? score1 / score3 :  0;
+		
+		if (temp != 0)
+			while(max.mod(divisor) == BigInteger.ZERO)
+			{
+				score+=1;
+				max = max.divide(divisor);
+			}
+				
 			
-//			score += 3 * 2;
-			
-			a = a.divide(divisor);
-			b = b.divide(divisor);
-			score += 2;
-//			temp.score = 2;
-//			temp = gcd(a, b, divisor.toString());
-//			temp.score *= divisor.intValue();
-			return score +=  gcd(a, b, divisor.toString());
-		}
+		temp = score2 %  score3;
+		score += temp == 0 ? score2 / score3 : 0;
+		
+		if (temp != 0)
+			while(min.mod(divisor) == BigInteger.ZERO)
+			{
+				score+=1;
+				min = min.divide(divisor);
+			}
+
 		
 		
-		// if only b % divisor == 0
-		else if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-		{
-			 b = b.divide(divisor);
-			 score++;
-//			 temp = gcd(a, b, divisor.toString());
-			 return score += gcd(a, b, divisor.toString());
-		}
 		
-		// if only b % divisor == 0
-		else if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-		{
-			a = a.divide(divisor);
-			score++;
-//			temp = gcd(a,b, divisor.toString());
-			return score += gcd(a, b, divisor.toString());
-		}
+		
+		
+		
+		
+		
+		
 		
 //		else
 //			bGood = false;
@@ -195,7 +238,7 @@ public class Main
 //			}
 //		}
 		
-		return 0;
+		return score;
 	}
 
 	/**
@@ -238,7 +281,7 @@ public class Main
 	public static void main(String[] args) 
 	{
 		// Read input from file
-		File inFile = new File("input.txt");
+		File inFile = new File("inputTest.txt");
 		Scanner scan = null;
 		
 		// necessary variables to store input 
