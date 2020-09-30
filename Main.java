@@ -109,6 +109,83 @@ public class Main
 	public static BigInteger gcd(BigInteger a, BigInteger b, String div, BigInteger score)
 	{
 		
+<<<<<<< HEAD
+=======
+//		while (aGood || bGood)
+//		{
+//		// if a % divisor == 0 && b % divisor == 0
+//		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
+//			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += 3 * gcd(a.divide(new BigInteger("3")),
+////					            b.divide(new BigInteger("3")), score);
+//			
+////			score += 3 * 2;
+//			
+//			a = a.divide(divisor);
+//			b = b.divide(divisor);
+//			score += 2;
+////			temp.score = 2;
+////			temp = gcd(a, b, divisor.toString());
+////			temp.score *= divisor.intValue();
+//			return score +=  gcd(a, b, divisor.toString());
+//		}
+//		
+//		
+//		// if only b % divisor == 0
+//		else if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+//			 b = b.divide(divisor);
+//			 score++;
+////			 temp = gcd(a, b, divisor.toString());
+//			 return score += gcd(a, b, divisor.toString());
+//		}
+//		
+//		// if only b % divisor == 0
+//		else if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+//		{
+//			a = a.divide(divisor);
+//			score++;
+////			temp = gcd(a,b, divisor.toString());
+//			return score += gcd(a, b, divisor.toString());
+//		}
+		
+//		Math.log10(a.max(b)a.doubleValue());
+		BigInteger max = a.max(b);
+		BigInteger min = max.compareTo(a) == 0 ? b : a;
+		double score1  = 0; // max
+		double score2 = 0; // min
+		double score3 = 0; // divisor
+		double temp = 0;
+		
+		score1  =  Math.log10(max.doubleValue());
+		score2 =  Math.log10(min.doubleValue());
+		score3 =  Math.log10(divisor.doubleValue());
+		
+		temp = score1 % score3;
+		score += temp == 0 ? score1 / score3 :  0;
+		
+		if (temp != 0)
+			while(max.mod(divisor) == BigInteger.ZERO)
+			{
+				score+=1;
+				max = max.divide(divisor);
+			}
+				
+			
+		temp = score2 %  score3;
+		score += temp == 0 ? score2 / score3 : 0;
+		
+		if (temp != 0)
+			while(min.mod(divisor) == BigInteger.ZERO)
+			{
+				score+=1;
+				min = min.divide(divisor);
+			}
+
+		
+		
+>>>>>>> parent of 0609d72... Update Main.java
 		
 		
 		
@@ -116,6 +193,7 @@ public class Main
 		
 		
 		
+<<<<<<< HEAD
 //		BigInteger score = BigInteger.ZERO;
 		BigInteger divisor = new BigInteger(div);
 		//		boolean aGood = true;
@@ -170,6 +248,8 @@ public class Main
 		{
 			return score; // score =  score.add(b);
 		}
+=======
+>>>>>>> parent of 0609d72... Update Main.java
 		
 		if (b.compareTo(BigInteger.ZERO) == 0 && a.compareTo(BigInteger.ZERO) == 0)
 		{
@@ -179,6 +259,7 @@ public class Main
 					return score;  //BigInteger.ZERO;
 				}
 //		else
+<<<<<<< HEAD
 //			return BigInteger.ZERO;
 
 		//		else
@@ -331,6 +412,104 @@ public class Main
 		//		}
 
 		//		return 0;
+=======
+//			bGood = false;
+		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		
+//		// not computing the gcd simply implement the algorithm 
+//		// he put on the page and calculate the score
+//		if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += 3 * gcd(a.divide(new BigInteger("3")),
+////					            b.divide(new BigInteger("3")), score);
+//			
+//			score += 3 * 2;
+//			a = a.divide(new BigInteger("3"));
+//		    b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
+//				b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//			score += 4 * gcd(a.divide(new BigInteger("4")),
+//						            b.divide(new BigInteger("4")), score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
+//				      	b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0)
+//			{
+//				score += gcd(a.divide(new BigInteger("4")), b, score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0 &&
+//				      b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//				score +=gcd(a, b.divide(new BigInteger("4")), score);
+//			}
+//		
+//		if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
+//				b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//			score += 7 * gcd(a.divide(new BigInteger("7")),
+//						            b.divide(new BigInteger("7")), score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
+//				      	b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0)
+//			{
+//				score += gcd(a.divide(new BigInteger("7")), b, score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0 &&
+//				      b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//				score += gcd(a, b.divide(new BigInteger("7")), score);
+//			}
+//		}
+		
+		return score;
+>>>>>>> parent of 0609d72... Update Main.java
 	}
 
 	/**
