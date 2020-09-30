@@ -25,7 +25,7 @@ public class Main
 		BigInteger newA;
 		BigInteger newB;
 		int score;
-
+		
 		// Constructor
 		public gcdOutput()
 		{
@@ -33,7 +33,7 @@ public class Main
 			this.newB = null;
 			this.score = 0;
 		}
-
+		
 		// Parameterized Constructor
 		public gcdOutput(BigInteger newA, BigInteger newB, int score)
 		{
@@ -42,60 +42,6 @@ public class Main
 			this.score = score;
 		}
 	}
-
-
-	
-	public static int gcd(BigInteger a, BigInteger b, String div)
-	{
-		boolean good = true;
-		int score = 0;
-		BigInteger divisor = new BigInteger(div);
-		
-		// iterative implementation
-		while(good)
-		{
-			
-			// if a or b == 0
-			if (a.compareTo(BigInteger.ZERO) == 0
-			|| b.compareTo(BigInteger.ZERO) == 0)
-			{
-				good = false;
-			}
-			
-			// if a % divisor == 0 && b % divisor == 0
-			if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
-					&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-			{
-				a = a.divide(divisor);
-				b = b.divide(divisor);
-				score += 2;
-				continue;
-			}
-			
-			// if only b % divisor == 0
-			if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-			{
-				b = b.divide(divisor);
-				score+= 1;
-				continue;
-			}
-			
-			// if only a % divisor == 0
-			if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
-			{
-				a = a.divide(divisor);
-				score += 1;
-				continue;
-			}
-			
-			// if we reach here we are done
-			good = false;
-			
-		}
-		
-		return score;
-	}
-	
 	
 	
 	/**
@@ -106,231 +52,208 @@ public class Main
 	 * @return
 	 * 				= the score of the recursive algorithm
 	 */
-	public static BigInteger gcd(BigInteger a, BigInteger b, String div, BigInteger score)
+	public static int gcd(BigInteger a, BigInteger b, String div)
 	{
-		
-		
-		
-		
-		
-		
-		
-		
-//		BigInteger score = BigInteger.ZERO;
+		int score = 0;
 		BigInteger divisor = new BigInteger(div);
-		//		boolean aGood = true;
-		//		boolean bGood = true;
-		//		gcdOutput temp = new gcdOutput();
-
-		//		while (aGood || bGood)
-		//		{
+//		boolean aGood = true;
+//		boolean bGood = true;
+//		gcdOutput temp = new gcdOutput();
+		
+//		while (aGood || bGood)
+//		{
 		// if a % divisor == 0 && b % divisor == 0
 		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
-				&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
-			//			score += 3 * gcd(a.divide(new BigInteger("3")),
-			//					            b.divide(new BigInteger("3")), score);
-
-			//			score += 3 * 2;
-
+//			score += 3 * gcd(a.divide(new BigInteger("3")),
+//					            b.divide(new BigInteger("3")), score);
+			
+//			score += 3 * 2;
+			
 			a = a.divide(divisor);
 			b = b.divide(divisor);
-			score = score.add(new BigInteger("2"));
-			//			temp.score = 2;
-			//			temp = gcd(a, b, divisor.toString());
-			//			temp.score *= divisor.intValue();
-			score = score.add(gcd(a, b, divisor.toString(), score));
+			score += 2;
+//			temp.score = 2;
+//			temp = gcd(a, b, divisor.toString());
+//			temp.score *= divisor.intValue();
+			return score +=  gcd(a, b, divisor.toString());
 		}
-
-
+		
+		
 		// if only b % divisor == 0
 		if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
-			b = b.divide(divisor);
-			score = score.add(new BigInteger("1"));
-			//			 temp = gcd(a, b, divisor.toString());
-			score = score.add(gcd(a, b, divisor.toString(), score));
+			 b = b.divide(divisor);
+			 score+=1;
+//			 temp = gcd(a, b, divisor.toString());
+			 return score += gcd(a, b, divisor.toString());
 		}
-
+		
 		// if only a % divisor == 0
 		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
 		{
 			a = a.divide(divisor);
-			score = score.add(new BigInteger("1"));
-			//			temp = gcd(a,b, divisor.toString());
-			score = score.add(gcd(a, b, divisor.toString(), score));
-		}
-
-		if (a.compareTo(BigInteger.ZERO) == 0 && b.compareTo(BigInteger.ZERO) != 0)
-		{
-			return score; // = score.add(a);
-		}
-
-		if (b.compareTo(BigInteger.ZERO) == 0 && a.compareTo(BigInteger.ZERO) != 0)
-		{
-			return score; // score =  score.add(b);
+			score+=1;
+//			temp = gcd(a,b, divisor.toString());
+			return score += gcd(a, b, divisor.toString());
 		}
 		
-		if (b.compareTo(BigInteger.ZERO) == 0 && a.compareTo(BigInteger.ZERO) == 0)
-		{
-			return  score; //.ZERO;
-		}
-				else {
-					return score;  //BigInteger.ZERO;
-				}
+//		else {
+//			return gcd(a.max(b).subtract(a.min(b)), a.min(b), divisor.toString());
+//		}
+		return 0;
+
 //		else
-//			return BigInteger.ZERO;
-
-		//		else
-		//				return 0;
-
-		//		else
-		//		{
-		//			return gcd(a.max(b).subtract(a.min(b)), a.min(b), divisor.toString());
-		//		}
-
-		//		Math.log10(a.max(b)a.doubleValue());
-
-
-		//		BigInteger max = a.max(b);
-		//		BigInteger min = max.compareTo(a) == 0 ? b : a;
-		//		double score1  = 0; // max
-		//		double score2 = 0; // min
-		//		double score3 = 0; // divisor
-		//		double temp = 0;
-		//		
-		//		score1  =  Math.log10(max.doubleValue());
-		//		score2 =  Math.log10(min.doubleValue());
-		//		score3 =  Math.log10(divisor.doubleValue());
-		//		
-		//		temp = score1 % score3;
-		//		score += temp == 0 ? score1 / score3 :  0;
-		//		
-		//		if (temp != 0)
-		//			while(max.mod(divisor) == BigInteger.ZERO)
-		//			{
-		//				score+= 1;
-		//				max = max.divide(divisor);
-		//			}
-		//				
-		//			
-		//		temp = score2 %  score3;
-		//		score += temp == 0 ? score2 / score3 : 0;
-		//		
-		//		if (temp != 0)
-		//			while(min.mod(divisor) == BigInteger.ZERO)
-		//			{
-		//				score+=1;
-		//				min = min.divide(divisor);
-		//			}
-		//
-		//		
-
-
-
-
-
-
-
-
-
-		//		else
-		//			bGood = false;
-
-		//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
-		//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
-		//		{
-		////			score += gcd(a.divide(new BigInteger("3")), b, score);
-		//			score += 1;
-		//			a = a.divide(new BigInteger("3"));
-		//		}
-		//		
-		//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
-		//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
-		//		{
-		////			score += gcd(a, b.divide(new BigInteger("3")), score);
-		//			score += 1;
-		//			b = b.divide(new BigInteger("3"));
-		//		}
-		//		
-		//		
-		//		// not computing the gcd simply implement the algorithm 
-		//		// he put on the page and calculate the score
-		//		if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
-		//			b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
-		//		{
-		////			score += 3 * gcd(a.divide(new BigInteger("3")),
-		////					            b.divide(new BigInteger("3")), score);
-		//			
-		//			score += 3 * 2;
-		//			a = a.divide(new BigInteger("3"));
-		//		    b = b.divide(new BigInteger("3"));
-		//		}
-		//		
-		//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
-		//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
-		//		{
-		////			score += gcd(a.divide(new BigInteger("3")), b, score);
-		//			score += 1;
-		//			a = a.divide(new BigInteger("3"));
-		//		}
-		//		
-		//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
-		//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
-		//		{
-		////			score += gcd(a, b.divide(new BigInteger("3")), score);
-		//			score += 1;
-		//			b = b.divide(new BigInteger("3"));
-		//		}
-
-
-
-
-
-
-
-
-
-		//		if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
-		//				b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
-		//			{
-		//			score += 4 * gcd(a.divide(new BigInteger("4")),
-		//						            b.divide(new BigInteger("4")), score);
-		//			}
-		//			
-		//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
-		//				      	b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0)
-		//			{
-		//				score += gcd(a.divide(new BigInteger("4")), b, score);
-		//			}
-		//			
-		//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0 &&
-		//				      b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
-		//			{
-		//				score +=gcd(a, b.divide(new BigInteger("4")), score);
-		//			}
-		//		
-		//		if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
-		//				b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
-		//			{
-		//			score += 7 * gcd(a.divide(new BigInteger("7")),
-		//						            b.divide(new BigInteger("7")), score);
-		//			}
-		//			
-		//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
-		//				      	b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0)
-		//			{
-		//				score += gcd(a.divide(new BigInteger("7")), b, score);
-		//			}
-		//			
-		//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0 &&
-		//				      b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
-		//			{
-		//				score += gcd(a, b.divide(new BigInteger("7")), score);
-		//			}
-		//		}
-
-		//		return 0;
+//				return 0;
+		
+//		else
+//		{
+//			return gcd(a.max(b).subtract(a.min(b)), a.min(b), divisor.toString());
+//		}
+		
+//		Math.log10(a.max(b)a.doubleValue());
+		
+		
+//		BigInteger max = a.max(b);
+//		BigInteger min = max.compareTo(a) == 0 ? b : a;
+//		double score1  = 0; // max
+//		double score2 = 0; // min
+//		double score3 = 0; // divisor
+//		double temp = 0;
+//		
+//		score1  =  Math.log10(max.doubleValue());
+//		score2 =  Math.log10(min.doubleValue());
+//		score3 =  Math.log10(divisor.doubleValue());
+//		
+//		temp = score1 % score3;
+//		score += temp == 0 ? score1 / score3 :  0;
+//		
+//		if (temp != 0)
+//			while(max.mod(divisor) == BigInteger.ZERO)
+//			{
+//				score+= 1;
+//				max = max.divide(divisor);
+//			}
+//				
+//			
+//		temp = score2 %  score3;
+//		score += temp == 0 ? score2 / score3 : 0;
+//		
+//		if (temp != 0)
+//			while(min.mod(divisor) == BigInteger.ZERO)
+//			{
+//				score+=1;
+//				min = min.divide(divisor);
+//			}
+//
+//		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		else
+//			bGood = false;
+		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		
+//		// not computing the gcd simply implement the algorithm 
+//		// he put on the page and calculate the score
+//		if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += 3 * gcd(a.divide(new BigInteger("3")),
+////					            b.divide(new BigInteger("3")), score);
+//			
+//			score += 3 * 2;
+//			a = a.divide(new BigInteger("3"));
+//		    b = b.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0 &&
+//			      	b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0)
+//		{
+////			score += gcd(a.divide(new BigInteger("3")), b, score);
+//			score += 1;
+//			a = a.divide(new BigInteger("3"));
+//		}
+//		
+//		else if (a.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) != 0 &&
+//			      b.mod(new BigInteger("3")).compareTo(BigInteger.ZERO) == 0)
+//		{
+////			score += gcd(a, b.divide(new BigInteger("3")), score);
+//			score += 1;
+//			b = b.divide(new BigInteger("3"));
+//		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+//		if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
+//				b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//			score += 4 * gcd(a.divide(new BigInteger("4")),
+//						            b.divide(new BigInteger("4")), score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0 &&
+//				      	b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0)
+//			{
+//				score += gcd(a.divide(new BigInteger("4")), b, score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) != 0 &&
+//				      b.mod(new BigInteger("4")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//				score +=gcd(a, b.divide(new BigInteger("4")), score);
+//			}
+//		
+//		if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
+//				b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//			score += 7 * gcd(a.divide(new BigInteger("7")),
+//						            b.divide(new BigInteger("7")), score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0 &&
+//				      	b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0)
+//			{
+//				score += gcd(a.divide(new BigInteger("7")), b, score);
+//			}
+//			
+//			else if (a.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) != 0 &&
+//				      b.mod(new BigInteger("7")).compareTo(BigInteger.ZERO) == 0)
+//			{
+//				score += gcd(a, b.divide(new BigInteger("7")), score);
+//			}
+//		}
+		
+//		return 0;
 	}
 
 	/**
@@ -344,11 +267,11 @@ public class Main
 		File outFile = new File("outputGANG.txt");
 		PrintWriter writer = null;
 		int index = 0;
-
+		
 		try
 		{
 			writer = new PrintWriter(outFile);
-
+			
 			// print out the "easily divisible nums" and their scores 
 			// separated by a space
 			for (Integer Int : ezDivNums)
@@ -356,8 +279,8 @@ public class Main
 				writer.print(Int + " " + scores.get(index) + "\n");
 				index++;
 			}
-
-
+				
+				
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -367,62 +290,61 @@ public class Main
 		{
 			writer.close();
 		}
-
+		
 	}
-
+	
 	public static void main(String[] args) 
 	{
 		// Read input from file
-		File inFile = new File("inputTest.txt");
+		File inFile = new File("input.txt");
 		Scanner scan = null;
-
+		
 		// necessary variables to store input 
 		int numElements = 0; // n
 		String divisor = "";
-
+		
 		// stores easily divisible numbers (there will b 'n' of these)
 		List<Integer> ezDivNums = new ArrayList<Integer>();
-
+		
 		// stores the a values (there will b 'n' of these) first number in gcd statement
 		List<BigInteger> aValues = new ArrayList<BigInteger>();
-
+		
 		// stores the b values (there will b 'n' of these) second number in gcd statement
 		List<BigInteger> bValues = new ArrayList<BigInteger>();
-
+		
 		// stores the recursion scores (there will b 'n' of these)
-		BigInteger[] scores = null;
-
+		Integer[] scores = null;
+		
 		try
 		{
 			scan = new Scanner(inFile);
-
+			
 			// gives us the number of elements
 			numElements = scan.nextInt();
-
+			
 			// create an array of scores and initialize to 0
-			scores = new BigInteger[numElements];
-			Arrays.fill(scores, BigInteger.ZERO);
-
+			scores = new Integer[numElements];
+			Arrays.fill(scores, 0);
+			
 			// gives us list of "easily divisible numbers"
 			for (int i = 0; i < numElements; i++)
 				ezDivNums.add(scan.nextInt());
-
+			
 			// gives us list of a and b values for initial gcd comparison
 			for (int i = 0; i < numElements; i++)
 			{
 				aValues.add(scan.nextBigInteger());
 				bValues.add(scan.nextBigInteger());
 			}
-
+			
 			// determine the gcd for each and store it in scores
-			//			for (int i = 0; i < numElements; i++)
-			//				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
-
+//			for (int i = 0; i < numElements; i++)
+//				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
+			
 			// gcd output
 			//gcdOutput output = new gcdOutput();
-			BigInteger output = new BigInteger("0");
-			BigInteger score = new BigInteger("0");
-
+			int output = 0;
+			
 			// determine the gcd score of one statement executed through for each set of divisible numbers
 			// s = gcd statement number index
 			// d = each easily divisible number index
@@ -430,26 +352,26 @@ public class Main
 			{
 				for (int d = 0; d < numElements; d++)
 				{
-					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString(), score);
-
+					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
+					
 					// update values
-					scores[d] = scores[d].add(output);
-					//					aValues.set(s, output.newA);
-					//					bValues.set(s, output.newB);
+					scores[d] += output;
+//					aValues.set(s, output.newA);
+//					bValues.set(s, output.newB);
 				}
 			}
-
-
+			
+			
 			// output test
 			for (int i = 0; i < numElements; i++)
 			{
 				System.out.print(ezDivNums.get(i) + " " + scores[i] + "\n");
 			}
-
-			//			// print test
-			//			for (Integer Int : scores)
-			//				System.out.print(Int);
-
+			
+//			// print test
+//			for (Integer Int : scores)
+//				System.out.print(Int);
+			
 		} catch (FileNotFoundException e)
 		{
 			// TODO Auto-generated catch block
@@ -458,11 +380,11 @@ public class Main
 		{
 			scan.close();
 		}
-
-
+		
+		
 		// print results to an output file
-		//		writeOutput(ezDivNums, scores);
-
+//		writeOutput(ezDivNums, scores);
+		
 	}
 
 }
