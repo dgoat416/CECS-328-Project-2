@@ -44,6 +44,9 @@ public class Main
 	}
 	
 	
+	
+	
+	// gcd method using gcd output to analyze the results
 	/**
 	 * Method to return the "score" of a recursive algorithm
 	 * @param a = one value to determine gcd
@@ -77,6 +80,7 @@ public class Main
 //			temp.score = 2;
 //			temp = gcd(a, b, divisor.toString());
 //			temp.score *= divisor.intValue();
+			//System.out.println("Score + 2" + a + ","+ b);
 			return score +=  gcd(a, b, divisor.toString());
 		}
 		
@@ -102,6 +106,8 @@ public class Main
 //		else {
 //			return gcd(a.max(b).subtract(a.min(b)), a.min(b), divisor.toString());
 //		}
+		// base case
+		System.out.println("Base case" + a + ","+ b);
 		return 0;
 
 //		else
@@ -256,6 +262,72 @@ public class Main
 //		return 0;
 	}
 
+	
+	
+	
+	/**
+	 * Method to return the "score" of a recursive algorithm
+	 * @param a = one value to determine gcd
+	 * 	@param b = another value to determine gcd
+	 * @param div = divisor as a string to create a bigInteger
+	 * @return
+	 * 				= the score of the recursive algorithm
+	 */
+	public static gcdOutput gcdO(BigInteger a, BigInteger b, String div)
+	{
+		int score = 0;
+		BigInteger divisor = new BigInteger(div);
+//		boolean aGood = true;
+//		boolean bGood = true;
+		gcdOutput output = new gcdOutput();
+		
+//		while (aGood || bGood)
+//		{
+		// if a % divisor == 0 && b % divisor == 0
+		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0
+			&& b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+		{		
+			a = a.divide(divisor);
+			b = b.divide(divisor);
+//			score += 2;
+//			temp.score = 2;
+//			temp = gcd(a, b, divisor.toString());
+//			temp.score *= divisor.intValue();
+			//System.out.println("Score + 2" + a + ","+ b);
+			output.score +=  2 + gcdO(a, b, divisor.toString()).score;
+//			return output;
+		}
+		
+		
+		// if only b % divisor == 0
+		if (b.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+		{
+			 b = b.divide(divisor);
+//			 score+=1;
+//			 temp = gcd(a, b, divisor.toString());
+			 output.score += 1 + gcdO(a, b, divisor.toString()).score;
+//			 return output;
+		}
+		
+		// if only a % divisor == 0
+		if (a.mod(divisor).compareTo(BigInteger.ZERO) == 0)
+		{
+			a = a.divide(divisor);
+//			score+=1;
+//			temp = gcd(a,b, divisor.toString());
+			output.score += 1 + gcdO(a, b, divisor.toString()).score;
+//			 return output;
+		}
+		
+//		else {
+//			return gcd(a.max(b).subtract(a.min(b)), a.min(b), divisor.toString());
+//		}
+		// base case
+//		System.out.println("Base case" + a + "\n"+ b);
+		
+		return output;
+	}
+
 	/**
 	 * Method to write the results of countRecustions to an
 	 * output file
@@ -342,8 +414,8 @@ public class Main
 //				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
 			
 			// gcd output
-			//gcdOutput output = new gcdOutput();
-			int output = 0;
+			gcdOutput output = new gcdOutput();
+//			int output = 0;
 			
 			// determine the gcd score of one statement executed through for each set of divisible numbers
 			// s = gcd statement number index
@@ -352,10 +424,14 @@ public class Main
 			{
 				for (int d = 0; d < numElements; d++)
 				{
-					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
+//					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
+					output = gcdO(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
 					
 					// update values
-					scores[d] += output;
+					scores[d] += output.score;
+//					System.out.println("\n" + aValues.get(s) + "\n" + bValues.get(s) + "\ndiv by" + ezDivNums.get(d)
+//					" gave us: " );
+//					scores[d] += output;
 //					aValues.set(s, output.newA);
 //					bValues.set(s, output.newB);
 				}
