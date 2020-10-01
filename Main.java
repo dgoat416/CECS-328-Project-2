@@ -44,7 +44,27 @@ public class Main
 	}
 	
 	
-	
+	// Class to hold the gcd output
+		public static class gcdPack
+		{
+			// public member variables
+			boolean isGood;
+			int score;
+			
+			// Constructor
+			public gcdPack()
+			{
+				isGood = true;
+				this.score = 0;
+			}
+			
+			// Parameterized Constructor
+			public gcdPack(int score, boolean isGood)
+			{
+				this.isGood = isGood;
+				this.score = score;
+			}
+		}
 	
 	// gcd method using gcd output to analyze the results
 	/**
@@ -263,7 +283,65 @@ public class Main
 	}
 
 	
+	public static gcdPack gcd(BigInteger a, BigInteger b, BigInteger div, boolean isGood)
+	{
+		gcdPack temp = new gcdPack(0, isGood);
+		
+		// 1. ------------------------------------------------------------------------
+		// if a == 0 or b == 0 or they are both 0
+		if (a.compareTo(BigInteger.ZERO) == 0
+		|| b.compareTo(BigInteger.ZERO) == 0)
+		{
+			return new gcdPack(0, false); // no score
+		}
+		
+		// 2. --------------------------------------------------------------------
+		// if a % divisor == 0 && b % divisor == 0
+		else if (a.mod(div).compareTo(BigInteger.ZERO) == 0
+			&& b.mod(div).compareTo(BigInteger.ZERO) == 0)
+		{		
+			a = a.divide(div);
+			b = b.divide(div);
+			temp = gcd(a, b, div, isGood);
+			temp.score += 2;
+			return temp;
+		}
+		
+		
+		// if only b % divisor == 0
+		else if (b.mod(div).compareTo(BigInteger.ZERO) == 0 && isGood)
+		{
+			 b = b.divide(div);
+			 temp = gcd(a, b, div, isGood);
+			 temp.score += 1;
+			 return temp;
+		}
+		
+		// if only a % divisor == 0
+		else if (a.mod(div).compareTo(BigInteger.ZERO) == 0 && isGood)
+		{
+			a = a.divide(div);
+			temp = gcd(a, b, div, isGood);
+			temp.score += 1;
+			return temp;
+		}
+		
+		
+		// 5. ---------------------------------------------------------------------
+		// "if we reach this point" .....
+		//		a = a.max(b).subtract(a.min(b));
+		//		b = a.min(b);
+//		while(a.mod(div).compareTo(BigInteger.ZERO) != 0
+//			&& b.mod(div).compareTo(BigInteger.ZERO) != 0)
+//		{
+//			BigInteger tempA = a.max(b).subtract(a.min(b));
+//			BigInteger tempB = a.min(b);
+//		}
+		else
+			return gcd(a.max(b).subtract(a.min(b)), a.min(b), div, false);
+		
 	
+	}
 	
 	/**
 	 * Method to return the "score" of a recursive algorithm
@@ -414,8 +492,9 @@ public class Main
 //				scores.add(gcd(aValues.get(i), bValues.get(i), ezDivNums.get(i).toString()));
 			
 			// gcd output
-			gcdOutput output = new gcdOutput();
+//			gcdOutput output = new gcdOutput();
 //			int output = 0;
+			gcdPack output = new gcdPack();
 			
 			// determine the gcd score of one statement executed through for each set of divisible numbers
 			// s = gcd statement number index
@@ -424,11 +503,11 @@ public class Main
 			{
 				for (int d = 0; d < numElements; d++)
 				{
-//					output = gcd(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
-					output = gcdO(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
+					output = gcd(aValues.get(d),bValues.get(d), new BigInteger(ezDivNums.get(s).toString()), true);
+					//output = gcdO(aValues.get(s),bValues.get(s), ezDivNums.get(d).toString());
 					
 					// update values
-					scores[d] += output.score;
+					scores[s] += output.score;
 //					System.out.println("\n" + aValues.get(s) + "\n" + bValues.get(s) + "\ndiv by" + ezDivNums.get(d)
 //					" gave us: " );
 //					scores[d] += output;
